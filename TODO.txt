@@ -1,7 +1,11 @@
 添加PC emulator板块
--wine(exagear,winlator,box86/box64,mobox)
--qemu(limbo)
+ -wine(exagear,winlator,box86/box64,mobox)
+ -qemu(limbo)
 添加普通教程板块
--rn-samp联机
--复制教程
--网站搭建
+ -rn-samp联机
+ -复制教程
+资源板块
+ -塞班s60v3
+ -IOS
+ -老旧安卓资源
+ -卡西欧999cncw计算器相关bug(异常)内容
