@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>起义者3：大泽乡 - 王侯将相，宁有种乎？</title>
+    <style>
+        :root {
+            --bg: #1a0a00;
+            --card: #1e1008;
+            --gold: #d4a843;
+            --red: #8b3a3a;
+            --red-bright: #b5442e;
+            --text: #c4b090;
+            --text-light: #a89880;
+            --border: #3d2820;
+            --border-light: #5a3d30;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: "SimHei", "黑体", "Heiti SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+            min-height: 100vh;
+            line-height: 1.9;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(180,120,60,0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 100%, rgba(139,58,58,0.04) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 40px 28px 60px;
+        }
+
+        /* ===== 顶部英雄区 ===== */
+        .hero {
+            text-align: center;
+            padding: 30px 20px 25px;
+            margin-bottom: 20px;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--red);
+            color: #ffd6a0;
+            font-size: 0.75em;
+            letter-spacing: 0.3em;
+            padding: 6px 18px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2em, 5vw, 2.6em);
+            color: #e6c468;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 0 40px rgba(200,150,50,0.3);
+        }
+
+        .hero .subtitle {
+            color: var(--red-bright);
+            font-size: 0.9em;
+            letter-spacing: 0.25em;
+            margin-bottom: 20px;
+        }
+
+        .hero .quote {
+            font-size: 1.4em;
+            color: #e0883a;
+            letter-spacing: 0.12em;
+            font-weight: 600;
+            margin: 10px 0 25px;
+        }
+
+        .hero .hero-img {
+            max-width: 500px;
+            width: 100%;
+            margin: 0 auto 15px;
+            border: 2px solid var(--border);
+            border-radius: 4px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .hero .hero-img img {
+            width: 100%;
+            display: block;
+        }
+
+        /* ===== 下载按钮（顶部） ===== */
+        .btn-download-top {
+            display: inline-block;
+            background: var(--red);
+            color: #ffddb0;
+            padding: 12px 36px;
+            text-decoration: none;
+            font-size: 1.05em;
+            letter-spacing: 0.1em;
+            border: 2px solid #c06040;
+            transition: all 0.3s;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        .btn-download-top:hover {
+            background: #b5442e;
+            border-color: var(--gold);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(200,150,50,0.25);
+        }
+
+        /* ===== 通用区块 ===== */
+        .section {
+            margin: 45px 0;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: var(--gold);
+            letter-spacing: 0.08em;
+            padding-bottom: 10px;
+            margin-bottom: 22px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title::before {
+            content: "▎";
+            color: var(--red-bright);
+            font-size: 1.1em;
+        }
+
+        .section p {
+            margin: 10px 0;
+            color: var(--text);
+            font-size: 0.98em;
+        }
+
+        .section strong {
+            color: #e6c468;
+            font-weight: 600;
+        }
+
+        /* ===== 特色卡片 ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 22px 0;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 22px 14px;
+            text-align: center;
+            transition: all 0.25s;
+        }
+        .feature-card:hover {
+            border-color: var(--red);
+            box-shadow: 0 0 18px rgba(139,58,58,0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+        .feature-card h3 {
+            color: var(--gold);
+            letter-spacing: 0.06em;
+            margin-bottom: 7px;
+            font-size: 1em;
+        }
+        .feature-card p {
+            font-size: 0.84em;
+            color: var(--text-light);
+            line-height: 1.65;
+        }
+
+        /* ===== 截图展示区 ===== */
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 22px 0;
+        }
+
+        .screenshot-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .screenshot-card .img-wrap {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            border-bottom: 1px solid var(--border);
+        }
+        .screenshot-card .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .screenshot-card .caption {
+            font-size: 0.78em;
+            color: var(--text-light);
+            padding: 8px 10px;
+            letter-spacing: 0.04em;
+            text-align: center;
+        }
+
+        /* ===== 信息表 ===== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin: 18px 0;
+        }
+        .info-label {
+            background: var(--card);
+            padding: 10px 16px;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            font-size: 0.92em;
+        }
+        .info-value {
+            background: var(--card);
+            padding: 10px 16px;
+            color: var(--text);
+            font-size: 0.92em;
+        }
+
+        /* ===== 引用块 ===== */
+        .blockquote {
+            text-align: center;
+            padding: 24px 18px;
+            margin: 28px 0;
+            border: 1px dashed var(--border);
+            font-style: italic;
+            color: #a09078;
+            letter-spacing: 0.05em;
+            background: rgba(139,58,58,0.04);
+        }
+        .blockquote .source {
+            margin-top: 8px;
+            font-size: 0.82em;
+            color: #7a6a58;
+        }
+
+        /* ===== 底部下载 ===== */
+        .cta-bottom {
+            text-align: center;
+            margin: 40px 0 20px;
+        }
+        .btn-download-bottom {
+            display: inline-block;
+            background: var(--red);
+            color: #ffddb0;
+            padding: 14px 40px;
+            text-decoration: none;
+            font-size: 1.1em;
+            letter-spacing: 0.1em;
+            border: 2px solid #c06040;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .btn-download-bottom:hover {
+            background: #b5442e;
+            border-color: var(--gold);
+            color: #fff;
+            box-shadow: 0 0 25px rgba(200,150,50,0.25);
+        }
+        .cta-note {
+            font-size: 0.78em;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+        /* ===== 页脚 ===== */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 25px;
+            color: #706050;
+            font-size: 0.85em;
+            letter-spacing: 0.04em;
+        }
+        footer a {
+            color: var(--red-bright);
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: var(--gold);
+        }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 700px) {
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .screenshot-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 460px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== 英雄区 ===== -->
+        <header class="hero">
+            <div class="hero-badge">文字策略 · 历史模拟</div>
+            <h1>起义者3：大泽乡</h1>
+            <div class="subtitle">UPRISER III · DAZE TOWNSHIP</div>
+            <div class="quote">「王侯将相，宁有种乎？」</div>
+            <div class="hero-img">
+                <img src="screenshots/menu.png" alt="主菜单">
+            </div>
+            <a href="https://paint-exe.lanzouw.com/b00l2rypqh" class="btn-download-top" target="_blank">▎ 下 载 游 戏 ▎</a>
+            <div class="cta-note">密码:exbe</div>
+        </header>
+
+        <!-- ===== 游戏简介 ===== -->
+        <div class="section">
+            <div class="section-title">游戏简介</div>
+            <p>
+                秦二世元年秋，你——<strong>陈胜</strong>，一名普通的屯长——与九百戍卒被征发前往渔阳戍边。
+                行至大泽乡，天降大雨，道路不通，已误期限。按秦律，<strong>失期当斩</strong>。
+            </p>
+            <p>
+                摆在你面前的只有两条路：等待处斩，或者——<strong>造反</strong>。
+            </p>
+            <p>
+                这是一款以秦末陈胜吴广起义为背景的<strong>文字策略游戏</strong>。
+                你将扮演陈胜，从大泽乡的九百戍卒起步，攻城略地，建立张楚政权，
+                最终向暴秦的都城咸阳挺进。
+            </p>
+        </div>
+
+        <!-- ===== 游戏截图 ===== -->
+        <div class="section">
+            <div class="section-title">游戏画面</div>
+            <div class="screenshot-grid">
+                <div class="screenshot-card">
+                    <div class="img-wrap">
+                        <img src="screenshots/gameplay.png" alt="游戏主界面">
+                    </div>
+                    <div class="caption">▲ 游戏主界面：状态栏 + 地图 + 菜单</div>
+                </div>
+                <div class="screenshot-card">
+                    <div class="img-wrap">
+                        <img src="screenshots/battle.png" alt="战斗消息">
+                    </div>
+                    <div class="caption">▲ 每周战报与消息系统</div>
+                </div>
+                <div class="screenshot-card">
+                    <div class="img-wrap">
+                        <img src="screenshots/squad.png" alt="部曲管理">
+                    </div>
+                    <div class="caption">▲ 部曲管理：创建、调整、任命、装备</div>
+                </div>
+                <div class="screenshot-card">
+                    <div class="img-wrap">
+                        <img src="screenshots/proclaim.png" alt="大泽乡动员">
+                    </div>
+                    <div class="caption">▲ 大泽乡起事：陈胜吴广动员戍卒</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 核心特色 ===== -->
+        <div class="section">
+            <div class="section-title">核心特色</div>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">⚔️</div>
+                    <h3>改写历史</h3>
+                    <p>历史上陈胜六个月败亡。<br>这一次，你能改变结局吗？</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📜</div>
+                    <h3>沉浸叙事</h3>
+                    <p>关键事件配有像素画面<br>和逐字呈现的剧情文本</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🏰</div>
+                    <h3>据点攻略</h3>
+                    <p>从大泽乡到咸阳，十余座<br>历史城池等待你的征服</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">👥</div>
+                    <h3>部曲系统</h3>
+                    <p>创建部曲、任命将领、<br>分配武器与兵力</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">💰</div>
+                    <h3>经济管理</h3>
+                    <p>粮草、税收、劫掠、募兵<br>平衡资源与军力</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🔄</div>
+                    <h3>多重结局</h3>
+                    <p>推翻暴秦？兵败身死？<br>不同的选择导向不同结局</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 游戏信息 ===== -->
+        <div class="section">
+            <div class="section-title">游戏信息</div>
+            <div class="info-grid">
+                <div class="info-label">游戏名称</div><div class="info-value">起义者3：大泽乡</div>
+                <div class="info-label">游戏类型</div><div class="info-value">文字策略 / 历史模拟</div>
+                <div class="info-label">历史背景</div><div class="info-value">秦末 · 陈胜吴广起义（前209年）</div>
+                <div class="info-label">运行平台</div><div class="info-value">Windows 控制台</div>
+                <div class="info-label">操作方式</div><div class="info-value">键盘输入数字选择菜单</div>
+                <div class="info-label">开发制作</div><div class="info-value">可执行油漆 / Paint.exe</div>
+                <div class="info-label">系列前作</div><div class="info-value">《起义者》《起义者2》</div>
+            </div>
+        </div>
+
+        <!-- ===== 历史背景 ===== -->
+        <div class="section">
+            <div class="section-title">历史背景</div>
+            <p>
+                公元前209年，陈胜、吴广等九百名戍卒被征发前往渔阳。
+                行至大泽乡时遭遇大雨，道路不通，已无法按时抵达。
+            </p>
+            <p>
+                按秦朝严苛的法律，失期当斩。走投无路的陈胜、吴广决定铤而走险，
+                杀死了押送的秦尉，率众起义。
+            </p>
+            <p>
+                这就是中国历史上<strong>第一次大规模农民起义</strong>——陈胜吴广起义。
+            </p>
+            <p>
+                陈胜攻占陈县后自立为王，国号「张楚」。起义军一度打到咸阳附近的戏水，
+                震动秦廷。但在秦将章邯的反击下，起义最终失败，陈胜被车夫庄贾所杀。
+            </p>
+            <p>
+                然而，「张楚」的旗帜已经点燃了反秦的燎原之火。
+                此后，项梁项羽、刘邦等人相继起兵，最终推翻了秦朝。
+            </p>
+            <div class="blockquote">
+                「陈胜虽已死，其所置遣侯王将相竟亡秦，由涉首事也。」
+                <div class="source">——《史记·陈涉世家》</div>
+            </div>
+        </div>
+
+        <!-- ===== 关于系列 ===== -->
+        <div class="section">
+            <div class="section-title">关于本系列</div>
+            <p>
+                《起义者》系列是开发者「可执行油漆」的个人作品系列。
+                前两部《起义者》和《起义者2》讲述了一个虚构校园中的反抗故事，
+                《起义者3：大泽乡》将舞台搬到了两千多年前的秦末大泽乡。
+            </p>
+            <p>
+                从教室到战场，从虚构到历史——不变的是对「反抗不公」这一主题的探讨。
+            </p>
+        </div>
+
+        <!-- ===== 底部下载 ===== -->
+        <div class="cta-bottom">
+            <a href="https://paint-exe.github.io" class="btn-download-bottom" target="_blank">▎ 下 载 游 戏 ▎</a>
+            <div class="cta-note">密码:exbe</div>
+            <div class="cta-note">免费游玩 · Windows 平台</div>
+        </div>
+
+        <!-- ===== 页脚 ===== -->
+        <footer>
+            <p>起义者3：大泽乡 · 可执行油漆 / Paint.exe</p>
+            <p>
+                联系：<a href="mailto:2387749550@qq.com">2387749550@qq.com</a>
+                &nbsp;·&nbsp; QQ：2387749550
+                &nbsp;·&nbsp; 网站：<a href="https://paint-exe.github.io" target="_blank">paint-exe.github.io</a>
+            </p>
+            <br>
+            <p>本游戏仅供娱乐，请勿模仿游戏内行为。</p>
+        </footer>
+
+    </div>
+</body>
+</html>
